@@ -1,87 +1,109 @@
-*Forzen food *
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Folder-Based Item Toggle with Pricing</title>
+  <style>
+    .container {
+      display: flex;
+      gap: 50px;
+      flex-wrap: wrap;
+    }
+    .page {
+      width: 45%;
+      border: 1px solid #aaa;
+      padding: 10px;
+    }
+    h2, h3 {
+      text-align: center;
+    }
+    ul {
+      list-style: none;
+      padding-left: 20px;
+    }
+    li {
+      background: #f0f0f0;
+      padding: 8px;
+      margin: 5px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    li:hover {
+      background: #d0e0ff;
+    }
+    .folder {
+      margin: 10px 0;
+      padding: 5px;
+      background: #f7f7f7;
+      border: 1px dashed #aaa;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
 
-Hotdogs - 18
-Nuggets - 15
-Popcorn Chicken 🍿🍗 - 21
-Fries 🍟 - 7
+<h1 style="text-align:center;">Folder Toggle (Page A & B with Pricing)</h1>
 
+<div class="container">
+  <!-- Page A -->
+  <div class="page" id="pageA">
+    <h2>Page A</h2>
 
-*Burger *
+    <!-- Sample Folder (you can paste the rest from previous messages or I can resend full code) -->
+    <div class="folder">
+      <h3>📂 Frozen Food</h3>
+      <ul id="Frozen_FoodA">
+        <li onclick="moveToB(this)" data-folder="Frozen_Food" data-price="2.50">Hotdogs - RM2.50</li>
+        <li onclick="moveToB(this)" data-folder="Frozen_Food" data-price="3.00">Nuggets - RM3.00</li>
+        <li onclick="moveToB(this)" data-folder="Frozen_Food" data-price="5.00">Popcorn Chicken 🍿🍗 - RM5.00</li>
+        <li onclick="moveToB(this)" data-folder="Frozen_Food" data-price="2.00">Fries 🍟 - RM2.00</li>
+      </ul>
+    </div>
 
-Bun - 3
-Vegetables 🥒 - 5
-Butter 🧈 - 8
+    <!-- Add all other folders and items here just like above -->
 
+  </div>
 
-*Nasi Lemak*
+  <!-- Page B -->
+  <div class="page" id="pageB">
+    <h2>Page B</h2>
 
-Kelapa Parut - 4
-Nuts 🥜 - 8
-Ikan Bilis - 28
-Dry Cili - 7
-Cukup Rasa - 4
-Lemon Grass - 2
-Ginger 🫚 - 2
-Rice 🌾 - 26
-Herbs 🪴 - 8
-Pandan Leaves 🍃 - 2
+    <!-- Empty folders for Page B -->
+    <div class="folder">
+      <h3>📂 Frozen Food</h3>
+      <ul id="Frozen_FoodB"></ul>
+    </div>
 
-*Ayam Gunting*
+    <!-- Add matching B folders for all categories -->
 
-Chicken UN 🍗 - 45
-Chicken Popcorn 🍿 - 23
-Chicken CF 🍗 - 43
+    <h3 id="totalPrice" style="text-align:center; margin-top:20px;">Total: RM 0.00</h3>
+  </div>
+</div>
 
-*Lemon Soda 🍋 *
+<script>
+  let total = 0;
 
-Soda 🥤 - 3
-SunQuick - 14
-Lemon 🍋 - 2
-Ice cube 🧊 - 3
+  function moveToB(item) {
+    const folder = item.getAttribute("data-folder");
+    const price = parseFloat(item.getAttribute("data-price")) || 0;
+    total += price;
+    updateTotal();
+    item.onclick = () => moveToA(item);
+    document.getElementById(folder + "B").appendChild(item);
+  }
 
-*SOS*
+  function moveToA(item) {
+    const folder = item.getAttribute("data-folder");
+    const price = parseFloat(item.getAttribute("data-price")) || 0;
+    total -= price;
+    updateTotal();
+    item.onclick = () => moveToB(item);
+    document.getElementById(folder + "A").appendChild(item);
+  }
 
-Mayo - 20
-Cili - 8
-BBQ - 8
-B.Papper - 8
-Korean Sos - 19
-cheese 🧀 - 16
+  function updateTotal() {
+    document.getElementById("totalPrice").innerText = "Total: RM " + total.toFixed(2);
+  }
+</script>
 
-*Plastic*
-
-P.Small - 2
-P.Medium - 3
-P.Big - 4
-Cup  - 9
-Cup lid - 5
-Straw - 3
-S.Container small - 6
-S.Container big - 8
-Spoon 🥄 - 3
-Garbage Bag 🗑️ 💼 - 4
-
-*Flour *
-
-Starch - 2
-Bestari flour - 9
-B.Papper - 19
-W.Papper - 8
-Salt 🧂- 2
-Cili Powder - 27
-Paprika - 31
-
-*Others*
-
-Lunchbox - 13
-Styrofoam - 9
-Stick 🦯 - 3
-Rubber ban - 3
-Gloves 🧤 - 3
-Petrol gen - 8
-Petrol van 🚐 ⛽️ - 21
-2T  - 17
-Spark plug 🔌 - 12
-Cooking Oil - 5
-Eggs 🥚 - 7
-Milk 🥛- 5
+</body>
+</html>
