@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Folder-Based Item Toggle</title>
+  <style>
+    .container {
+      display: flex;
+      gap: 50px;
+      flex-wrap: wrap;
+    }
+    .page {
+      width: 45%;
+      border: 1px solid #aaa;
+      padding: 10px;
+    }
+    h2, h3 {
+      text-align: center;
+    }
+    ul {
+      list-style: none;
+      padding-left: 20px;
+    }
+    li {
+      background: #f0f0f0;
+      padding: 8px;
+      margin: 5px;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    li:hover {
+      background: #d0e0ff;
+    }
+    .folder {
+      margin: 10px 0;
+      padding: 5px;
+      background: #f7f7f7;
+      border: 1px dashed #aaa;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+<h1 style="text-align:center;">Folder Toggle (Page A & B)</h1>
+
+<div class="container">
+  <!-- Page A -->
+  <div class="page" id="pageA">
+    <h2>Page A</h2>
+
+    <div class="folder" id="folderA_Frozen_Food">
+      <h3>📂 Frozen Food</h3>
+      <ul id="Frozen_FoodA">
+        <li onclick="moveToB(this)" data-folder="Frozen_Food">Hotdogs</li>
+        <li onclick="moveToB(this)" data-folder="Frozen_Food">Nuggets</li>
+        <li onclick="moveToB(this)" data-folder="Frozen_Food">Popcorn Chicken 🍿🍗</li>
+        <li onclick="moveToB(this)" data-folder="Frozen_Food">Fries 🍟</li>
+      </ul>
+    </div>
+
+    <div class="folder" id="folderA_Burger">
+      <h3>📂 Burger</h3>
+      <ul id="BurgerA">
+        <li onclick="moveToB(this)" data-folder="Burger">Bun</li>
+        <li onclick="moveToB(this)" data-folder="Burger">Vegetables 🥒</li>
+        <li onclick="moveToB(this)" data-folder="Burger">Butter 🧈</li>
+      </ul>
+    </div>
+
+    <div class="folder" id="folderA_Nasi_Lemak">
+      <h3>📂 Nasi Lemak</h3>
+      <ul id="Nasi_LemakA">
+        <li onclick="moveToB(this)" data-folder="Nasi_Lemak">Kelapa Parut</li>
+        <li onclick="moveToB(this)" data-folder="Nasi_Lemak">Nuts 🥜</li>
+        <li onclick="moveToB(this)" data-folder="Nasi_Lemak">Ikan Bilis</li>
+        <li onclick="moveToB(this)" data-folder="Nasi_Lemak">Dry Cili</li>
+        <li onclick="moveToB(this)" data-folder="Nasi_Lemak">Cukup Rasa</li>
+        <li onclick="moveToB(this)" data-folder="Nasi_Lemak">Lemon Grass</li>
+        <li onclick="moveToB(this)" data-folder="Nasi_Lemak">Ginger 🫚</li>
+        <li onclick="moveToB(this)" data-folder="Nasi_Lemak">Rice 🌾</li>
+        <li onclick="moveToB(this)" data-folder="Nasi_Lemak">Herbs 🪴</li>
+        <li onclick="moveToB(this)" data-folder="Nasi_Lemak">Pandan Leaves 🍃</li>
+      </ul>
+    </div>
+
+    <div class="folder" id="folderA_Ayam_Gunting">
+      <h3>📂 Ayam Gunting</h3>
+      <ul id="Ayam_GuntingA">
+        <li onclick="moveToB(this)" data-folder="Ayam_Gunting">Chicken UN 🍗</li>
+        <li onclick="moveToB(this)" data-folder="Ayam_Gunting">Chicken Popcorn 🍿</li>
+        <li onclick="moveToB(this)" data-folder="Ayam_Gunting">Chicken CF 🍗</li>
+      </ul>
+    </div>
+
+    <div class="folder" id="folderA_Lemon_Soda">
+      <h3>📂 Lemon Soda 🍋</h3>
+      <ul id="Lemon_SodaA">
+        <li onclick="moveToB(this)" data-folder="Lemon_Soda">Soda 🥤</li>
+        <li onclick="moveToB(this)" data-folder="Lemon_Soda">SunQuick</li>
+        <li onclick="moveToB(this)" data-folder="Lemon_Soda">Lemon 🍋</li>
+        <li onclick="moveToB(this)" data-folder="Lemon_Soda">Ice cube 🧊</li>
+      </ul>
+    </div>
+
+    <div class="folder" id="folderA_SOS">
+      <h3>📂 SOS</h3>
+      <ul id="SOSA">
+        <li onclick="moveToB(this)" data-folder="SOS">Mayo</li>
+        <li onclick="moveToB(this)" data-folder="SOS">Cili</li>
+        <li onclick="moveToB(this)" data-folder="SOS">BBQ</li>
+        <li onclick="moveToB(this)" data-folder="SOS">B.Papper</li>
+        <li onclick="moveToB(this)" data-folder="SOS">Korean Sos</li>
+        <li onclick="moveToB(this)" data-folder="SOS">cheese 🧀</li>
+      </ul>
+    </div>
+
+    <div class="folder" id="folderA_Plastic">
+      <h3>📂 Plastic</h3>
+      <ul id="PlasticA">
+        <li onclick="moveToB(this)" data-folder="Plastic">P.Small</li>
+        <li onclick="moveToB(this)" data-folder="Plastic">P.Medium</li>
+        <li onclick="moveToB(this)" data-folder="Plastic">P.Big</li>
+        <li onclick="moveToB(this)" data-folder="Plastic">Cup</li>
+        <li onclick="moveToB(this)" data-folder="Plastic">Cup lid</li>
+        <li onclick="moveToB(this)" data-folder="Plastic">Straw</li>
+        <li onclick="moveToB(this)" data-folder="Plastic">S.Container small</li>
+        <li onclick="moveToB(this)" data-folder="Plastic">S.Container big</li>
+        <li onclick="moveToB(this)" data-folder="Plastic">Spoon 🥄</li>
+        <li onclick="moveToB(this)" data-folder="Plastic">Garbage Bag 🗑️ 💼</li>
+      </ul>
+    </div>
+
+    <div class="folder" id="folderA_Flour">
+      <h3>📂 Flour</h3>
+      <ul id="FlourA">
+        <li onclick="moveToB(this)" data-folder="Flour">Starch</li>
+        <li onclick="moveToB(this)" data-folder="Flour">Bestari flour</li>
+        <li onclick="moveToB(this)" data-folder="Flour">B.Papper</li>
+        <li onclick="moveToB(this)" data-folder="Flour">W.Papper</li>
+        <li onclick="moveToB(this)" data-folder="Flour">Salt 🧂</li>
+        <li onclick="moveToB(this)" data-folder="Flour">Cili Powder</li>
+        <li onclick="moveToB(this)" data-folder="Flour">Paprika</li>
+      </ul>
+    </div>
+
+    <div class="folder" id="folderA_Others">
+      <h3>📂 Others</h3>
+      <ul id="OthersA">
+        <li onclick="moveToB(this)" data-folder="Others">Lunchbox</li>
+        <li onclick="moveToB(this)" data-folder="Others">Styrofoam</li>
+        <li onclick="moveToB(this)" data-folder="Others">Stick 🦯</li>
+        <li onclick="moveToB(this)" data-folder="Others">Rubber ban</li>
+        <li onclick="moveToB(this)" data-folder="Others">Gloves 🧤</li>
+        <li onclick="moveToB(this)" data-folder="Others">Petrol gen</li>
+        <li onclick="moveToB(this)" data-folder="Others">Petrol van 🚐 ⛽️</li>
+        <li onclick="moveToB(this)" data-folder="Others">2T</li>
+        <li onclick="moveToB(this)" data-folder="Others">Spark plug 🔌</li>
+        <li onclick="moveToB(this)" data-folder="Others">Cooking Oil</li>
+        <li onclick="moveToB(this)" data-folder="Others">Eggs 🥚</li>
+        <li onclick="moveToB(this)" data-folder="Others">Milk 🥛</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <!-- Page B -->
+  <div class="page" id="pageB">
+    <h2>Page B</h2>
+
+    <!-- Same folder structure will appear but empty -->
+    <!-- We'll use JavaScript to toggle back and forth -->
+
+    <div class="folder" id="folderB_Frozen_Food"><h3>📂 Frozen Food</h3><ul id="Frozen_FoodB"></ul></div>
+    <div class="folder" id="folderB_Burger"><h3>📂 Burger</h3><ul id="BurgerB"></ul></div>
+    <div class="folder" id="folderB_Nasi_Lemak"><h3>📂 Nasi Lemak</h3><ul id="Nasi_LemakB"></ul></div>
+    <div class="folder" id="folderB_Ayam_Gunting"><h3>📂 Ayam Gunting</h3><ul id="Ayam_GuntingB"></ul></div>
+    <div class="folder" id="folderB_Lemon_Soda"><h3>📂 Lemon Soda 🍋</h3><ul id="Lemon_SodaB"></ul></div>
+    <div class="folder" id="folderB_SOS"><h3>📂 SOS</h3><ul id="SOSB"></ul></div>
+    <div class="folder" id="folderB_Plastic"><h3>📂 Plastic</h3><ul id="PlasticB"></ul></div>
+    <div class="folder" id="folderB_Flour"><h3>📂 Flour</h3><ul id="FlourB"></ul></div>
+    <div class="folder" id="folderB_Others"><h3>📂 Others</h3><ul id="OthersB"></ul></div>
+
+  </div>
+</div>
+
+<script>
+  function moveToB(item) {
+    const folder = item.getAttribute("data-folder");
+    item.onclick = () => moveToA(item);
+    document.getElementById(folder + "B").appendChild(item);
+  }
+
+  function moveToA(item) {
+    const folder = item.getAttribute("data-folder");
+    item.onclick = () => moveToB(item);
+    document.getElementById(folder + "A").appendChild(item);
+  }
+</script>
+
+</body>
+</html>
