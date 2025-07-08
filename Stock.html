@@ -1,95 +1,37 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Mister 36 Outlet </title>
-  <style>
-    .container { display: flex; gap: 50px; flex-wrap: wrap; }
-    .page { width: 45%; border: 1px solid #aaa; padding: 10px; }
-    h2, h3 { text-align: center; }
-    ul { list-style: none; padding-left: 20px; }
-    li { background: #f0f0f0; padding: 8px; margin: 5px; cursor: pointer; border-radius: 5px; }
-    li:hover { background: #d0e0ff; }
-    .folder { margin: 10px 0; padding: 5px; background: #f7f7f7; border: 1px dashed #aaa; border-radius: 4px; }
-  </style>
-</head>
-<body>
-
-<h1 style="text-align:center;">Mister 36 Outlet Inventory</h1>
-<div class="container">
-  <!-- Page A -->
-  <div class="page" id="Items">
-    <h2>Items</h2>
-
-<!-- START OF FOLDERS PAGE A -->
-<script>
-const items = {
-  "Forzen food": {
-    "Hotdogs": 18.00, "Nuggets": 15.00, "Popcorn Chicken 🍿🍗": 21.00, "Fries 🍟": 7.00
-  },
-  "Burger": {
-    "Bun": 3.00, "Vegetables 🥒": 5.00, "Butter 🧈": 8.00
-  },
-  "Nasi Lemak": {
-    "Kelapa Parut": 4.00, "Nuts 🥜": 8.00, "Ikan Bilis": 28.00, "Dry Cili": 7.00, "Cukup Rasa": 4.00,
-    "Lemon Grass": 2.00, "Ginger 🫚": 2.00, "Rice 🌾": 26.00, "Herbs 🪴": 8.00, "Pandan Leaves 🍃": 2.00
-  },
-  "Ayam Gunting": {
-    "Chicken UN 🍗": 45.00, "Chicken Popcorn 🍿": 23.00, "Chicken CF 🍗": 43.00
-  },
-  "Lemon Soda 🍋": {
-    "Soda 🥤": 3.00, "SunQuick": 14.00, "Lemon 🍋": 2.00, "Ice cube 🧊": 3.00
-  },
-  "SOS": {
-    "Mayo": 20.00, "Cili": 8.00, "BBQ": 8.00, "B.Papper": 8.00, "Korean Sos": 19.0, "cheese 🧀": 16.00
-  },
-  "Plastic": {
-    "P.Small": 2.00, "P.Medium": 3.00, "P.Big": 4.00, "Cup": 9.00, "Cup lid": 5.00,
-    "Straw": 3.00, "S.Container small": 6.00, "S.Container big": 8.00, "Spoon 🥄": 3.00,
-    "Garbage Bag 🗑️ 💼": 4.00, "Cup Plastic 🥤": 2.00
-  },
-  "Flour": {
-    "Starch": 2.00, "Bestari flour": 9.00, "B.Papper": 19.00, "W.Papper": 8.00,
-    "Salt 🧂": 2.00, "Cili Powder": 27.00, "Paprika": 31.00
-  },
-  "Others": {
-    "Lunchbox": 13.00, "Styrofoam": 9.00, "Stick 🦯": 3.00, "Rubber ban": 3.00,
-    "Gloves 🧤": 3.00, "Petrol gen": 8.00, "Petrol van 🚐 ⛽️": 21.00,
-    "2T": 17.00, "Spark plug 🔌": 12.00, "Cooking Oil": 5.00,
-    "Eggs 🥚": 7.00, "Milk 🥛": 5.00, "Gas ⛽️": 29.00
-  }
-};
-</script>
-
-<div id="foldersA"></div>
-  </div>
-
-  <!-- Page B -->
-  <div class="page" id=Items to buy">
-    <h2>Items To Buy</h2>
-    <div id="foldersB"></div>
-    <h3 id="totalPrice" style="text-align:center; margin-top:20px;">Total: RM 0.00</h3>
-  </div>
-</div>
-
 <script>
 let total = 0;
+let savedItems = JSON.parse(localStorage.getItem("itemsToBuy")) || [];
+
+function saveToLocalStorage() {
+  localStorage.setItem("itemsToBuy", JSON.stringify(savedItems));
+}
 
 function moveToB(item) {
   const folder = item.dataset.folder;
   const price = parseFloat(item.dataset.price);
+  const name = item.dataset.name;
+
   total += price;
   updateTotal();
   item.onclick = () => moveToA(item);
   document.getElementById(folder + "_B").appendChild(item);
+
+  savedItems.push({ name, folder, price });
+  saveToLocalStorage();
 }
 
 function moveToA(item) {
   const folder = item.dataset.folder;
   const price = parseFloat(item.dataset.price);
+  const name = item.dataset.name;
+
   total -= price;
   updateTotal();
   item.onclick = () => moveToB(item);
   document.getElementById(folder + "_A").appendChild(item);
+
+  savedItems = savedItems.filter(i => i.name !== name || i.folder !== folder);
+  saveToLocalStorage();
 }
 
 function updateTotal() {
@@ -109,20 +51,28 @@ function createFolder(folderName, items) {
   divB.innerHTML = `<h3>📂 ${folderName}</h3><ul id="${id}_B"></ul>`;
   document.getElementById("foldersB").appendChild(divB);
 
-  for (const [item, price] of Object.entries(items)) {
+  for (const [itemName, price] of Object.entries(items)) {
     const li = document.createElement("li");
-    li.textContent = `${item} - RM${price.toFixed(2)}`;
+    li.textContent = `${itemName} - RM${price.toFixed(2)}`;
     li.setAttribute("data-folder", id);
     li.setAttribute("data-price", price);
-    li.onclick = () => moveToB(li);
-    divA.querySelector("ul").appendChild(li);
+    li.setAttribute("data-name", itemName);
+
+    const isSaved = savedItems.some(i => i.name === itemName && i.folder === id);
+
+    if (isSaved) {
+      li.onclick = () => moveToA(li);
+      divB.querySelector("ul").appendChild(li);
+      total += price;
+    } else {
+      li.onclick = () => moveToB(li);
+      divA.querySelector("ul").appendChild(li);
+    }
   }
 }
 
 for (const [folder, itemList] of Object.entries(items)) {
   createFolder(folder, itemList);
 }
+updateTotal();
 </script>
-
-</body>
-</html>
